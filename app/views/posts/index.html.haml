@@ -8,4 +8,7 @@
         %ul
           - posts.each do |post|
             %li
-              = post.content
+              %p
+                = post.content
+              %p
+                = link_to 'Edit', edit_post_path(post)
