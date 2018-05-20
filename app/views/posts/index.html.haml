@@ -1,0 +1,10 @@
+%h1 HelloF
+=link_to 'New', new_post_path
+%ul
+  - @posts.each do |post|
+    %li
+      %p
+        = post.created_at
+      %p
+        = post.content
+    %li
