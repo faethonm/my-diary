@@ -1,10 +1,11 @@
 %h1 HelloF
 =link_to 'New', new_post_path
 %ul
-  - @posts.each do |post|
+  - @posts.group_by(&:day).each do |day, posts|
     %li
       %p
-        = post.created_at
-      %p
-        = post.content
-    %li
+        = day
+        %ul
+          - posts.each do |post|
+            %li
+              = post.content
