@@ -38,6 +38,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'react_on_rails', '11.0.0'
 gem 'devise'
 gem 'haml'
+gem 'ffaker'
 
 group :development, :test do
   gem 'sqlite3'

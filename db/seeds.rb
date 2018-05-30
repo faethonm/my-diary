@@ -6,9 +6,14 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+User.destroy_all
+Post.destroy_all
+user = User.create(
+    email: 'faethon@me.com',
+    password: 'password')
 
-5.times do | index| 
-  Post.create!(
-    content: "hello#{index}"
+5.times do | index|
+  user.posts.create!(
+    content: "#{FFaker::BaconIpsum.paragraph}"
   )
 end

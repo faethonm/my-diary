@@ -1,5 +1,9 @@
-%h1 HelloF
+= link_to 'Log out',   destroy_user_session_path, method: :delete
+%h1
+  Hello
+  = current_user.email
 =link_to 'New', new_post_path
+
 %ul
   - @posts.group_by(&:day).each do |day, posts|
     %li
