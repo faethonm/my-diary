@@ -8,12 +8,14 @@
 
 User.destroy_all
 Post.destroy_all
-user = User.create(
-    email: 'faethon@me.com',
-    password: 'password')
+if Rails.env.development?
+  user = User.create(
+      email: 'test@me.com',
+      password: 'password')
 
-5.times do | index|
-  user.posts.create!(
-    content: "#{FFaker::BaconIpsum.paragraph}"
-  )
+  5.times do | index|
+    user.posts.create!(
+      content: "#{FFaker::BaconIpsum.paragraph}"
+    )
+  end
 end
