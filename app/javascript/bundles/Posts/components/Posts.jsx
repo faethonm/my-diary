@@ -3,7 +3,7 @@ import React from 'react';
 
 export default class Posts extends React.Component {
   static propTypes = {
-    posts: PropTypes.object.isRequired, // this is passed from the Rails view
+    posts: PropTypes.array.isRequired, // this is passed from the Rails view
   };
 
   static defaultProps = {
@@ -19,7 +19,29 @@ export default class Posts extends React.Component {
     // How to set initial state in ES6 class syntax
     // https://reactjs.org/docs/state-and-lifecycle.html#adding-local-state-to-a-class
     this.state = {
-      posts: this.props.posts };
+      posts: this.props.posts,
+      content: ''
+    };
+
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleSubmit(e){
+    e.preventDefault();
+    let post = {
+      content:  this.state.content
+    }
+    $.post('/posts/',
+      {post} ).done(()=> console.log('done'))
+  }
+
+  handleChange(e){
+    console.log(e.target.value)
+    this.setState({
+      content: e.target.value
+    })
+    console.log(this.state)
   }
 
   render() {
@@ -29,9 +51,21 @@ export default class Posts extends React.Component {
           Hello
         </h3>
         <hr />
-        {this.state.posts.map((post) => {
-          console.log(post.content)
+        <form onSubmit={this.handleSubmit}>
+          <textarea rows="4" cols="50" name="content" form="usrform"
+            onChange={this.handleChange}>
+          </textarea>
+        <input type="submit" value="Add post"/>
+        </form>
+        <ul>
+          {this.state.posts.map((post) => {
+            return (
+              <li key={post.id}>
+                {post.content}
+              </li>
+            )
         })}
+          </ul>
       </div>
     );
   }

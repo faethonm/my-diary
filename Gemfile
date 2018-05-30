@@ -39,6 +39,8 @@ gem 'react_on_rails', '11.0.0'
 gem 'devise'
 gem 'haml'
 gem 'ffaker'
+# Use jquery as the JavaScript library
+gem 'jquery-rails'
 
 group :development, :test do
   gem 'sqlite3'
