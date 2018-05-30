@@ -1,5 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import {PostList} from './PostList.jsx';
+import moment from 'moment'
 
 export default class Posts extends React.Component {
   static propTypes = {
@@ -33,15 +35,20 @@ export default class Posts extends React.Component {
       content:  this.state.content
     }
     $.post('/posts/',
-      {post} ).done(()=> console.log('done'))
+      {post} )
+    .done((data)=> {
+      const posts = this.state.posts
+      posts.push(data);
+      this.setState({
+        posts: posts
+      })
+    })
   }
 
   handleChange(e){
-    console.log(e.target.value)
     this.setState({
       content: e.target.value
     })
-    console.log(this.state)
   }
 
   render() {
@@ -57,15 +64,7 @@ export default class Posts extends React.Component {
           </textarea>
         <input type="submit" value="Add post"/>
         </form>
-        <ul>
-          {this.state.posts.map((post) => {
-            return (
-              <li key={post.id}>
-                {post.content}
-              </li>
-            )
-        })}
-          </ul>
+        <PostList posts={this.state.posts} />
       </div>
     );
   }
